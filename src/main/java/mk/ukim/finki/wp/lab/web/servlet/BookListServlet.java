@@ -13,7 +13,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet(name = "BookListServlet", urlPatterns = "/")
+@WebServlet(name = "BookListServlet", urlPatterns = "")
 public class BookListServlet extends HttpServlet {
     private final SpringTemplateEngine springTemplateEngine;
     private final BookService bookService;
@@ -23,6 +23,7 @@ public class BookListServlet extends HttpServlet {
         this.springTemplateEngine = springTemplateEngine;
         this.bookService = bookService;
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IWebExchange webExchange = JakartaServletWebApplication
@@ -31,7 +32,10 @@ public class BookListServlet extends HttpServlet {
 
         WebContext context = new WebContext(webExchange);
 
-        context.setVariable("books",this.bookService.listAll());
+        context.setVariable("books", this.bookService.listAll());
+
+        springTemplateEngine.process("listBooks.html", context, resp.getWriter());
 
 
     }
+}
