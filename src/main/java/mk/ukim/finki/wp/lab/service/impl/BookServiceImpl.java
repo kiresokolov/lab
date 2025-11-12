@@ -36,13 +36,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book add(String title, String genre, Double averageRating, Long authorId) {
-        Author author = authorRepository.findByIndex((int) (long)authorId);
+        Author author = authorRepository.findByIndex(authorId);
         return bookRepository.add(title, genre, averageRating, author);
     }
 
     @Override
     public Book update(Long id, String title, String genre, Double averageRating, Long authorId) {
-        Author author = authorRepository.findByIndex((int) (long) authorId);
+        Author author = authorRepository.findByIndex(authorId);
         return bookRepository.update(id, title, genre, averageRating, author);
     }
 

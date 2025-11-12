@@ -27,30 +27,29 @@
         <input type="hidden" name="bookId" th:value="${bookId}">
 
         <label>Name:</label>
-        <input type="text" name="title" th:value="${title != null} ? ${title} : ''" required/>
-        <br />
+        <input type="text" name="title" th:value="${title != null} ? ${title} : ''" required="">
+        <br>
 
         <label>Genre:</label>
-        <input type="text" name="genre" th:value="${genre != null} ? ${genre} : ''" required/>
-        <br />
+        <input type="text" name="genre" th:value="${genre != null} ? ${genre} : ''" required="">
+        <br>
 
         <label>Average rating:</label>
-        <input type="number" name="averageRating" th:value="${averageRating != null} ? ${averageRating} : ''" step=".01" min="0" value="0" required />
-        <br />
+        <input type="number" name="averageRating" th:value="${averageRating != null} ? ${averageRating} : ''" step=".01" min="0" value="0" required="">
+        <br>
 
         <label>Author:</label>
-        <select name="authorId" required>
+        <select name="authorId" required="">
             <option value="">-- Select Author --</option>
-            <option th:each="author : ${authors}"
-                    th:value="${author.id}"
-                    th:text="${author.id + ' - ' + author.name + ' ' + author.surname}">
+            <option th:each="author : ${authors}" th:value="${author.getId}" th:text="${author.getId() + ' - ' + author.name + ' ' + author.surname}">
             </option>
         </select>
-        <br/>
+        <br>
 
 
         <button th:text="${bookId != null ? 'Edit' : 'Add'} + ' book'" type="submit"></button>
     </form>
 </main>
+
 </body>
 </html>

@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.lab.web.servlet.contoller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import mk.ukim.finki.wp.lab.model.BookReservation;
+import mk.ukim.finki.wp.lab.service.AuthorService;
 import mk.ukim.finki.wp.lab.service.BookReservationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/bookReservation")
 public class BookReservationController {
     private final BookReservationService bookReservationService;
+    private final AuthorService authorService;
 
-    public BookReservationController(BookReservationService bookReservationService) {
+    public BookReservationController(BookReservationService bookReservationService, AuthorService authorService) {
         this.bookReservationService = bookReservationService;
+        this.authorService = authorService;
     }
 
     @GetMapping
@@ -37,6 +40,7 @@ public class BookReservationController {
         model.addAttribute("bookTitle", bookTitle);
         model.addAttribute("ipAddress", ipAddress);
         model.addAttribute("numberOfCopies", numberOfCopies);
+        model.addAttribute("authors",authorService.findAll());
 
         return "reservationConfirmation";
     }

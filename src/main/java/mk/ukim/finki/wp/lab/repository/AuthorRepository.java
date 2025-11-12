@@ -29,7 +29,11 @@ public class AuthorRepository {
         return authors.stream().toList();
     }
 
-    public Author findByIndex(int index) {
-        return authors.get(index);
+    public Author findByIndex(Long index) {
+        return authors.stream().filter(a -> a.getId().equals(index)).findFirst().get();
+    }
+    public Author findByName(String name)
+    {
+        return authors.stream().filter(a -> a.getName().equals(name)).findFirst().get();
     }
 }

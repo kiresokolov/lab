@@ -1,6 +1,7 @@
 package mk.ukim.finki.wp.lab.web.servlet.contoller;
 
 import mk.ukim.finki.wp.lab.model.Book;
+import mk.ukim.finki.wp.lab.service.AuthorService;
 import mk.ukim.finki.wp.lab.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +14,11 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final AuthorService authorService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, AuthorService authorService) {
         this.bookService = bookService;
+        this.authorService = authorService;
     }
 
     @GetMapping
@@ -42,6 +45,7 @@ public class BookController {
 
     @GetMapping("/book-form")
     public String getAddBookPage(Model model) {
+        model.addAttribute("authors",authorService.findAll());
         return "book-form";
     }
 
@@ -52,6 +56,7 @@ public class BookController {
                            @RequestParam Long authorId
     ) {
         bookService.add(title, genre, averageRating, authorId);
+
         return "redirect:/books";
     }
 
@@ -67,6 +72,8 @@ public class BookController {
         model.addAttribute("genre", book.getGenre());
         model.addAttribute("averageRating", book.getAverageRating());
         model.addAttribute("authorId", book.getAuthor().getId());
+        model.addAttribute("authors",authorService.findAll());
+
         return "book-form";
     }
 
