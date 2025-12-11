@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.IntStream;
 
-@Repository
+
 public class InMemoryBookRepository implements BookRepository {
     @Override
     public List<Book> findAll() {

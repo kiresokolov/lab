@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+
 public class AuthorRepository {
 
     private static final List<Author> authors = new ArrayList<>();
