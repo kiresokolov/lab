@@ -35,12 +35,20 @@
         <h2>Filter books:</h2>
 
         <label>Name:</label>
-        <input type="text" name="filterName" required/>
+        <input type="text" name="filterName"/>
         <br />
 
         <label>Minimum rating:</label>
-        <input type="number" name="filterRating" step=".01" min="0" value="0" required />
+        <input type="number" name="filterRating" step=".01" min="0" value="0"/>
         <br />
+
+        <h2>Filter books by author:</h2>
+        <select name="filterAuthorId" required>
+            <option value="-1" th:selected="${filteredId == -1}">None</option>
+            <option th:each="author : ${authors}" th:value="${author.getId()}"
+                    th:text="${author.getName()} + ' ' + ${author.getSurname()}"
+                    th:selected="${filteredId == author.getId()}"></option>
+        </select>
 
         <button type="submit">Filter</button>
     </form>

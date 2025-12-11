@@ -26,6 +26,7 @@ public class BookController {
     public String getBooksPage(@RequestParam(required = false) String error,
                                @RequestParam(required = false) String filterName,
                                @RequestParam(required = false) String filterRating,
+                               @RequestParam(required = false) String filterAuthorId,
                                Model model) {
         if (error != null) {
             model.addAttribute("error", error);
@@ -38,8 +39,21 @@ public class BookController {
         } else {
             books = bookService.listAll();
         }
+        long authorId = -1L;
+        try {
+            authorId = Long.parseLong(filterAuthorId);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        if(authorId != -1) {
+            books = bookService.findBooksByAuthorId(authorId);
+        } else {
+            books = bookService.listAll();
+        }
 
         model.addAttribute("books", books);
+        model.addAttribute("authors", authorService.findAll());
         return "listBooks";
     }
 
