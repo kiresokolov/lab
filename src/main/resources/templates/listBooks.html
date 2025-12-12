@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <title>Book Reservation - Welcome and choose a Book</title>
@@ -60,19 +60,30 @@
                 <input type="radio" class="book-option" name="bookTitle" th:value="${book.getTitle()}"
                        th:text="'Title: ' + ${book.getTitle()} + ', Genre: ' + ${book.getGenre()} + ', Rating: ' + ${book.getAverageRating()} + ', Author: ' + ${book.getAuthor().getName()} + ' ' + ${book.getAuthor().getSurname()}" />
 
-                <button type="submit" name="edit" th:formaction="@{'/books/book-form/' + ${book.getId()}}" formmethod="get" formnovalidate>
+                <button sec:authorize="hasRole('ADMIN')"
+                        type="submit" name="edit"
+                        th:formaction="@{'/books/book-form/' + ${book.getId()}}"
+                        formmethod="get" formnovalidate>
                     Edit
                 </button>
 
-                <button type="submit" name="delete" th:formaction="@{'/books/delete/' + ${book.getId()}}" formmethod="post" formnovalidate>
+
+                <button sec:authorize="hasRole('ADMIN')"
+                        type="submit" name="delete"
+                        th:formaction="@{'/books/delete/' + ${book.getId()}}"
+                        formmethod="post" formnovalidate>
                     Delete
                 </button>
+
             </div>
         </div>
 
-        <button type="submit" name="addBook" formaction="/books/book-form" formmethod="get" formnovalidate>
+        <button sec:authorize="hasRole('ADMIN')"
+                name="addBook" formaction="/books/book-form"
+                formmethod="get" formnovalidate>
             Add Book
         </button>
+
 
         <h2>Enter your information:</h2>
         <label>Your Name:</label>
